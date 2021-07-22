@@ -8,14 +8,17 @@ const app =express();
 conectarDB()
 
 //habilitar cors
-app.use(cors());
-
-//habilidar express.json
-
-app.use(express.json({extended:true}));
-
-//puerto de la app
+app.use(cors({ credentials: true, origin: true }));
+app.options("*", cors());
+ 
+//PUERTO DE LA APP
 const port = process.env.PORT || 4000;
+ 
+//ARRANCAR EL SERV.
+app.listen(port, () => {
+  console.log(`serv. corriendo en el puerto ${port} `);
+});
+//
 
 //import rutas
 
@@ -26,7 +29,3 @@ app.use('/api/tareas', require('./routes/tareas'))
 //definir la pagina principal
 
 
-//arrancar la app
-app.listen(port,'0.0.0.0.',()=>{
-    console.log(`El servidor esta funcionando en el puerto ${PORT}`)
-})
